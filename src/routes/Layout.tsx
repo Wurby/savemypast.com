@@ -4,16 +4,7 @@ import Link from "../components/Link";
 import Text from "../components/Text";
 import useSetTheme from "../hooks/useSetTheme";
 import { HorizontalDivider, VerticalDivider } from "../components/ThinDivider";
-
-type RouteTitles = {
-  [key: string]: string;
-};
-
-const routeTitles = {
-  "/": "Home",
-  "/settings": "Settings",
-  "/404": "Page Not Found",
-} as RouteTitles;
+import { routeTitles } from "./router";
 
 const Layout: React.FC = () => {
   const { theme } = useSetTheme();
@@ -45,6 +36,13 @@ const Layout: React.FC = () => {
             <VerticalDivider />
             <Link
               className="border-2 border-slate-500 bg-slate-300 px-4 py-0.5 text-slate-900 active:translate-y-px dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100"
+              href="/timeline"
+            >
+              Timeline
+            </Link>
+            <VerticalDivider />
+            <Link
+              className="border-2 border-slate-500 bg-slate-300 px-4 py-0.5 text-slate-900 active:translate-y-px dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100"
               href="/settings"
             >
               Settings
@@ -59,9 +57,6 @@ const Layout: React.FC = () => {
         <HorizontalDivider />
         <Outlet />
       </main>
-      <footer className="bg-slate-200 px-4 py-2 dark:bg-slate-950">
-        <Text>this is a footer</Text>
-      </footer>
     </div>
   );
 };

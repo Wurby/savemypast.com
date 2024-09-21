@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+select {
+  appearance: none; /* Remove default styling in most browsers */
+  -webkit-appearance: none; /* Remove default styling in Safari */
+  -moz-appearance: none; /* Remove default styling in Firefox */
+  border: none; /* Remove default border */
+  background: none; /* Remove default background */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
+  font: inherit; /* Inherit font styles */
+  color: inherit; /* Inherit text color */
+}

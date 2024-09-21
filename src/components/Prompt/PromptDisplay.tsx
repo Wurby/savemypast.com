@@ -20,7 +20,7 @@ const PromptDisplay: React.FC<PromptDisplayProps> = ({
 
   React.useEffect(() => {
     if (fetcher.state === "idle" && !fetcher.data) {
-      fetcher.load("/api/getPrompt");
+      fetcher.load("/");
     }
   }, [fetcher]);
 
@@ -34,7 +34,7 @@ const PromptDisplay: React.FC<PromptDisplayProps> = ({
   const handleRefresh = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setLoading(true);
-    fetcher.load("/api/getPrompt");
+    fetcher.load("/");
   };
 
   if (loading) {

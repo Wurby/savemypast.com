@@ -12,7 +12,7 @@ const getPrompt = async () => {
       {
         role: "system",
         content:
-          "You are a helpful personal history writing prompter that provides prompts the user with a single prompt to write about different and specific memories as a way for them to incrementally build a personal history.",
+          "You are a helpful prompter that prompts the user with a single writing prompt about different and specific memories from their past as a way for them to incrementally write a personal history.",
       },
       {
         role: "system",

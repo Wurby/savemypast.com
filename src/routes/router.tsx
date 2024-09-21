@@ -5,6 +5,20 @@ import Settings from "./Settings";
 import Layout from "./Layout";
 import getPrompt from "./getPrompt";
 import NotFound from "./NotFound";
+import Timeline from "./Timeline";
+import { promptAction } from "../components/Prompt/PromptAction";
+import { getSubmissions } from "./getSubmissions";
+
+type RouteTitles = {
+  [key: string]: string;
+};
+
+export const routeTitles = {
+  "/": "Home",
+  "/settings": "Settings",
+  "/timeline": "Timeline",
+  "/404": "Page Not Found",
+} as RouteTitles;
 
 const fakeLoader = async () => {
   // Fake loader to simulate the getPrompt function, returns a fake prompt after a delay of 2 seconds...
@@ -34,14 +48,17 @@ const router = createBrowserRouter([
       {
         path: "/",
         Component: Home as React.FC,
+        loader: import.meta.env.VITE_DEV ? fakeLoader : getPrompt,
+        action: promptAction,
+      },
+      {
+        path: "/timeline",
+        loader: getSubmissions,
+        Component: Timeline as React.FC,
       },
       {
         path: "/settings",
         Component: Settings as React.FC,
-      },
-      {
-        path: "/api/getPrompt",
-        loader: import.meta.env.VITE_DEV ? fakeLoader : getPrompt,
       },
       // not found route
       {

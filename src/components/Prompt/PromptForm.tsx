@@ -1,12 +1,24 @@
 import * as React from "react";
-import { Form } from "react-router-dom";
+import { useFetcher } from "react-router-dom";
 import PromptField from "./PromptField";
 import PromptDisplay from "./PromptDisplay";
 import type { PromptForm } from "./PromptForm.d";
 import Button from "../Button";
 import Text from "../Text";
 
+export const storeSubmissionsInLocalStorage = (data: PromptForm) => {
+  const submissions = JSON.parse(
+    localStorage.getItem("promptSubmissions") || "[]"
+  );
+  localStorage.setItem(
+    "promptSubmissions",
+    JSON.stringify([...submissions, data])
+  );
+};
+
 const PromptForm: React.FC = () => {
+  const fetcher = useFetcher();
+
   const [formErrorMessages, setFormErrorMessages] = React.useState<string[]>(
     []
   );
@@ -29,14 +41,10 @@ const PromptForm: React.FC = () => {
     dispatch({ age: 0 });
   }, []);
 
-  const handleAgeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({ age: parseInt(e.target.value) });
-  };
-
-  const handlePromptResponseChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement>
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    dispatch({ promptResponse: e.target.value });
+    dispatch({ [e.target.name]: e.target.value });
   };
 
   const handleValidation = () => {
@@ -51,12 +59,49 @@ const PromptForm: React.FC = () => {
     return errors.length === 0;
   };
 
+  const handleAssistantPrompts = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const fakePrompts = [
+      "While you were doing this, what were you thinking?",
+      "What was the hardest part of this?",
+      "What did you learn from this?",
+      "What would you do differently next time?",
+    ];
+    dispatch({
+      assistantPrompts: fakePrompts,
+    });
+  };
+
+  if (fetcher.data?.type === "error") {
+    return (
+      <div className="flex flex-col gap-2 bg-slate-300 p-4 dark:bg-slate-800">
+        <Text variant="error">
+          {Object.values(fetcher.data.errors).join(" ")}
+        </Text>
+      </div>
+    );
+  }
+
+  if (fetcher.data?.type === "success") {
+    return (
+      <div className="flex flex-col gap-2 bg-slate-300 p-4 dark:bg-slate-800">
+        <Text variant="success">{fetcher.data.message}</Text>
+        <Text variant="subtitle">do another?</Text>
+        <Button variant="secondary" onClick={() => window.location.reload()}>
+          Yes
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <>
-      <Form
+      <fetcher.Form
         onChange={handleValidation}
+        method="POST"
         className="flex flex-col"
-        action="/api/submitPromptResponse"
+        action="/"
       >
         <PromptDisplay
           dispatch={dispatch}
@@ -64,7 +109,10 @@ const PromptForm: React.FC = () => {
           className="flex gap-2 bg-slate-300 p-4 dark:bg-slate-800"
         />
         <PromptField
-          onChange={handlePromptResponseChange}
+          onChange={(e) => {
+            handleChange(e);
+            handleAssistantPrompts(e);
+          }}
           required
         ></PromptField>
 
@@ -75,6 +123,14 @@ const PromptForm: React.FC = () => {
           required
           value={new Date().toISOString().split("T")[0]}
         />
+        {formState.assistantPrompts.map((prompt, index) => (
+          <input
+            key={index}
+            type="hidden"
+            name={`assistantPrompts[${index}]`}
+            value={prompt}
+          />
+        ))}
         <div className="m-0 flex w-full justify-between gap-2 bg-slate-300 p-4 dark:bg-slate-800">
           <input
             className="w-32 border-2 border-slate-400 bg-slate-200 px-2 py-0.5 text-slate-800 focus:outline-none dark:border-slate-500 dark:bg-slate-600 dark:text-slate-100"
@@ -82,7 +138,7 @@ const PromptForm: React.FC = () => {
             pattern="[0-9]*"
             name="age"
             required
-            onChange={handleAgeChange}
+            onChange={handleChange}
             placeholder="age"
           />
           {formErrorMessages.length > 0 && (
@@ -92,7 +148,7 @@ const PromptForm: React.FC = () => {
             <Text variant="button">Save Response</Text>
           </Button>
         </div>
-      </Form>
+      </fetcher.Form>
     </>
   );
 };
