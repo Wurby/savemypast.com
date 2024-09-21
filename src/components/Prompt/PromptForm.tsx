@@ -109,7 +109,7 @@ const PromptForm: React.FC = () => {
         <PromptField
           onChange={(e) => {
             handleChange(e);
-            handleAssistantPrompts(e);
+            handleAssistantPrompts();
           }}
           required
         ></PromptField>
