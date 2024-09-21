@@ -59,9 +59,7 @@ const PromptForm: React.FC = () => {
     return errors.length === 0;
   };
 
-  const handleAssistantPrompts = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleAssistantPrompts = () => {
     const fakePrompts = [
       "While you were doing this, what were you thinking?",
       "What was the hardest part of this?",
