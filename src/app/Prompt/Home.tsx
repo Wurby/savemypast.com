@@ -1,6 +1,6 @@
 import React from "react";
-import Text from "../components/Text";
-import PromptForm from "../components/Prompt/PromptForm";
+import Text from "../../components/Text";
+import PromptForm from "../../components/Prompt/PromptForm";
 
 const Home: React.FC = () => {
   return (

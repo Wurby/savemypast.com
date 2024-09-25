@@ -1,7 +1,7 @@
 import React from "react";
-import useSetTheme from "../hooks/useSetTheme";
-import Button from "../components/Button";
-import Text from "../components/Text";
+import useSetTheme from "../../hooks/useSetTheme";
+import Button from "../../components/Button";
+import Text from "../../components/Text";
 
 const Settings: React.FC = () => {
   const { theme, toggleTheme, resetTheme } = useSetTheme();

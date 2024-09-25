@@ -1,13 +1,13 @@
 import { createBrowserRouter, redirect } from "react-router-dom";
 import * as React from "react";
-import Home from "./Home";
-import Settings from "./Settings";
+import Home from "./Prompt/Home";
+import Settings from "./Settings/Settings";
 import Layout from "./Layout";
-import getPrompt from "./getPrompt";
+import getPrompt from "./Prompt/getPrompt";
 import NotFound from "./NotFound";
-import Timeline from "./Timeline";
-import { promptAction } from "../components/Prompt/PromptAction";
-import { getSubmissions } from "./getSubmissions";
+import Timeline from "./Timeline/Timeline";
+import { promptAction } from "./Prompt/promptAction";
+import { getSubmissions } from "./Timeline/getSubmissions";
 
 type RouteTitles = {
   [key: string]: string;

@@ -1,4 +1,4 @@
-import { PromptForm } from "../components/Prompt/PromptForm.d";
+import PromptForm from "../../components/Prompt/PromptForm";
 
 export const getSubmissions = async (): Promise<PromptForm[]> => {
   const submissions = await localStorage.getItem("promptSubmissions");

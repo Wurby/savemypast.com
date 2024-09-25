@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useFetcher } from "react-router-dom";
-import type { PromptForm } from "../components/Prompt/PromptForm.d";
-import PromptCard from "../components/Prompt/PromptCard";
-import Text from "../components/Text";
-import Button from "../components/Button";
+import type PromptForm from "../../components/Prompt/PromptForm";
+import PromptCard from "../../components/Prompt/PromptCard";
+import Text from "../../components/Text";
+import Button from "../../components/Button";
 
 const filterByAge = (promptResponses: PromptForm[]) => {
   return promptResponses.sort((a, b) => a.age - b.age);
