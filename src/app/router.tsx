@@ -27,7 +27,6 @@ export const routeTitles = {
 } as RouteTitles;
 
 const fakeLoader = async () => {
-  console.log("wow it loaded more than once");
   // Fake loader to simulate the getPrompt function, returns a fake prompt after a delay of 2 seconds...
   const garbage = await new Promise<string>((resolve) => {
     const fakePrompts = [

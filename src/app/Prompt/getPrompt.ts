@@ -6,6 +6,8 @@ const openai = new OpenAI({
 });
 
 const getPrompt = async () => {
+  console.log("wow it loaded more than once");
+
   const completion = await openai.chat.completions.create({
     model: "gpt-4o-mini",
     messages: [
