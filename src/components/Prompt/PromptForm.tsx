@@ -99,7 +99,7 @@ const PromptForm: React.FC = () => {
         onChange={handleValidation}
         method="POST"
         className="flex flex-col"
-        action="/"
+        action="/prompts"
       >
         <PromptDisplay
           dispatch={dispatch}

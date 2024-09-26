@@ -22,7 +22,12 @@ const getPrompt = async () => {
       {
         role: "system",
         content:
-          "Example prompts include: 'When you were a child, what was school like? Did you have a favorite subject?', 'What was your first job and where was it? How old were you?', 'Did you attend college? Where did you attend or why didn't you attend? What was your major? or what would it have been?'",
+          "Topics you can prompt the user on are as follows: childhood, adolescence, adulthood, family, friends, school, work, hobbies, interests, trauma, adversity, achievements, marriage, dating, children, travel, love and relationships, and personal growth.",
+      },
+      {
+        role: "system",
+        content:
+          "Do not limit yourself to childhood or adolescent memories, the user may have memories from any period of their life that they would like to write about.",
       },
     ],
   });

@@ -12,9 +12,15 @@ interface TextProps {
     | "link"
     | "error"
     | "success";
+  htmlProps?: React.HTMLProps<HTMLParagraphElement>;
 }
 
-const Text: React.FC<TextProps> = ({ children, className, variant }) => {
+const Text: React.FC<TextProps> = ({
+  children,
+  className,
+  variant,
+  htmlProps,
+}) => {
   let style = className ? className + " " : " ";
   switch (variant) {
     case "title":
@@ -35,14 +41,35 @@ const Text: React.FC<TextProps> = ({ children, className, variant }) => {
     case "link":
       style += "text-base hover:underline dark:text-slate-100 ";
       break;
-    case "label":
-      style += "text-base font-light dark:text-slate-100 ";
-      break;
     default:
       style += "text-base font-light dark:text-slate-100 ";
       break;
   }
-  return <p className={" " + style}>{children}</p>;
+
+  return (
+    <p className={style} {...htmlProps}>
+      {children}
+    </p>
+  );
+};
+
+export const Label = ({
+  children,
+  className,
+  htmlFor,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  htmlFor: string;
+}) => {
+  return (
+    <label
+      htmlFor={htmlFor}
+      className={`text-base font-light dark:text-slate-100 ${className}`}
+    >
+      {children}
+    </label>
+  );
 };
 
 export default Text;

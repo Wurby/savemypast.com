@@ -3,6 +3,7 @@ import Text from "../Text";
 import { useFetcher } from "react-router-dom";
 import type { PromptForm } from "./PromptForm.d";
 import Button from "../Button";
+import LoadingSpinner from "../LoadingSpinner";
 
 interface PromptDisplayProps {
   className?: string;
@@ -20,7 +21,7 @@ const PromptDisplay: React.FC<PromptDisplayProps> = ({
 
   React.useEffect(() => {
     if (fetcher.state === "idle" && !fetcher.data) {
-      fetcher.load("/");
+      fetcher.load("/prompts");
     }
   }, [fetcher]);
 
@@ -34,13 +35,13 @@ const PromptDisplay: React.FC<PromptDisplayProps> = ({
   const handleRefresh = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setLoading(true);
-    fetcher.load("/");
+    fetcher.load("/prompts");
   };
 
   if (loading) {
     return (
       <section className={`${className}`}>
-        <Text variant="subtitle">Loading prompt...</Text>
+        <LoadingSpinner />
       </section>
     );
   }
