@@ -18,6 +18,7 @@ const Home: React.FC = () => {
     if (fetcher3.state === "idle" && !fetcher3.data) {
       fetcher3.load("/prompts");
     }
+    console.log("Strict mode active if appears twice");
   }, [fetcher, fetcher2, fetcher3]);
 
   return (
@@ -47,13 +48,13 @@ const Home: React.FC = () => {
 
       <section className="flex max-w-4xl justify-between gap-8 self-center">
         <div className="w-2/6 border-2 border-slate-500 p-2">
-          <Text>{fetcher.data ? fetcher.data : <LoadingSpinner />}</Text>
+          {fetcher.data ? <Text>{fetcher.data}</Text> : <LoadingSpinner />}
         </div>
         <div className="w-2/6 border-2 border-slate-500 p-2">
-          <Text>{fetcher2.data ? fetcher2.data : <LoadingSpinner />}</Text>
+          {fetcher2.data ? <Text>{fetcher2.data}</Text> : <LoadingSpinner />}
         </div>
         <div className="w-2/6 border-2 border-slate-500 p-2">
-          <Text>{fetcher3.data ? fetcher3.data : <LoadingSpinner />}</Text>
+          {fetcher3.data ? <Text>{fetcher3.data}</Text> : <LoadingSpinner />}
         </div>
       </section>
     </section>
