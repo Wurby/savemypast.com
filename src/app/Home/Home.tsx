@@ -18,7 +18,6 @@ const Home: React.FC = () => {
     if (fetcher3.state === "idle" && !fetcher3.data) {
       fetcher3.load("/prompts");
     }
-    console.log("Strict mode active if appears twice");
   }, [fetcher, fetcher2, fetcher3]);
 
   return (
