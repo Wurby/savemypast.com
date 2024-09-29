@@ -2,17 +2,17 @@ import { createUserWithEmailAndPassword, UserCredential } from "firebase/auth";
 import { ActionFunctionArgs } from "react-router-dom";
 import { auth } from "../../firebase/firebase";
 
-type SignupActionReturnTypes = "success" | "error";
+export type AuthActionReturnTypes = "success" | "error";
 
-type SignupActionReturn = {
+export type AuthActionReturn = {
   user: UserCredential | null;
-  type: SignupActionReturnTypes;
+  type: AuthActionReturnTypes;
   errors: string[];
 };
 
 export const signupAction = async ({
   request,
-}: ActionFunctionArgs): Promise<SignupActionReturn> => {
+}: ActionFunctionArgs): Promise<AuthActionReturn> => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData.entries());
   const email = data.email as string;
@@ -54,16 +54,11 @@ export const signupAction = async ({
     errors.push(errorMessage ? errorMessage : "An unknown error occurred");
   });
 
-  const response = {
+  return {
     user: user ? user : null,
-    type:
-      errors.length > 0
-        ? ("error" as SignupActionReturnTypes)
-        : ("success" as SignupActionReturnTypes),
+    type: user ? "success" : "error",
     errors,
   };
-
-  return response;
 };
 
 export default signupAction;

@@ -27,8 +27,6 @@ const Signup: React.FC = () => {
     setErrors(newErrors);
   };
 
-  console.log(fetcher.data);
-
   if (fetcher.data?.type === "error") {
     return (
       <section className="flex w-full flex-col items-center justify-center">
@@ -56,9 +54,9 @@ const Signup: React.FC = () => {
       onChange={validate}
       method="POST"
       action="/signup"
-      className="flex h-full w-full flex-col items-center justify-center gap-2"
+      className="flex h-full w-full flex-col items-center justify-center gap-4"
     >
-      <div className="flex w-3/6 flex-col justify-center">
+      <div className="flex w-3/6 max-w-xl flex-col justify-center gap-4">
         <Label className="flex items-center justify-between" htmlFor="email">
           Email
           <input

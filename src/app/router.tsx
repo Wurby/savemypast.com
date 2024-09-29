@@ -11,6 +11,7 @@ import { getSubmissions } from "./Timeline/getSubmissions";
 import Signup from "./Login/Signup";
 import signupAction from "./Login/SignupAction";
 import Home from "./Home/Home";
+import Login, { LoginAction } from "./Login/Login";
 
 type RouteTitles = {
   [key: string]: string;
@@ -60,6 +61,11 @@ const router = createBrowserRouter([
         Component: Prompts as React.FC,
         loader: import.meta.env.VITE_DEV ? fakeLoader : getPrompt,
         action: promptAction,
+      },
+      {
+        path: "/login",
+        action: LoginAction,
+        Component: Login as React.FC,
       },
       {
         path: "/signup",

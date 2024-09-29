@@ -7,10 +7,33 @@ import { HorizontalDivider, VerticalDivider } from "../components/ThinDivider";
 import { routeTitles } from "./router";
 import LoadingSpinner from "../components/LoadingSpinner";
 
+import { auth } from "../firebase/firebase";
+import { signOut, onAuthStateChanged, User } from "firebase/auth";
+import Button from "../components/Button";
+
 const Layout: React.FC = () => {
   const { theme } = useSetTheme();
   const currentRoute = useLocation().pathname;
   const { state } = useNavigation();
+  const [user, setUser] = React.useState<User | null>(null);
+
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        setUser(null);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  React.useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      }
+    });
+  }, []);
 
   return (
     <div
@@ -57,20 +80,27 @@ const Layout: React.FC = () => {
               Settings
             </Link>
             <VerticalDivider />
-            <section className="flex flex-col gap-1">
-              <Link
-                className="border-2 border-slate-500 bg-slate-300 px-4 text-slate-900 active:translate-y-px dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100"
-                href="/login"
-              >
-                Login
-              </Link>
-              <Link
-                className="border-2 border-slate-500 bg-slate-300 px-4 text-slate-900 active:translate-y-px dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100"
-                href="/signup"
-              >
-                Signup
-              </Link>
-            </section>
+            {user ? (
+              <>
+                <Text variant="caption">{user.email}</Text>
+                <Button onClick={handleSignOut}>Sign out</Button>
+              </>
+            ) : (
+              <section className="flex flex-col gap-1">
+                <Link
+                  className="border-2 border-slate-500 bg-slate-300 px-4 text-slate-900 active:translate-y-px dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100"
+                  href="/login"
+                >
+                  Login
+                </Link>
+                <Link
+                  className="border-2 border-slate-500 bg-slate-300 px-4 text-slate-900 active:translate-y-px dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100"
+                  href="/signup"
+                >
+                  Signup
+                </Link>
+              </section>
+            )}
           </div>
         </nav>
       </header>

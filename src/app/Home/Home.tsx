@@ -5,20 +5,12 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 
 const Home: React.FC = () => {
   const fetcher = useFetcher();
-  const fetcher2 = useFetcher();
-  const fetcher3 = useFetcher();
 
   React.useEffect(() => {
     if (fetcher.state === "idle" && !fetcher.data) {
       fetcher.load("/prompts");
     }
-    if (fetcher2.state === "idle" && !fetcher2.data) {
-      fetcher2.load("/prompts");
-    }
-    if (fetcher3.state === "idle" && !fetcher3.data) {
-      fetcher3.load("/prompts");
-    }
-  }, [fetcher, fetcher2, fetcher3]);
+  }, [fetcher]);
 
   return (
     <section className="mx-auto flex flex-col gap-8">
@@ -46,14 +38,20 @@ const Home: React.FC = () => {
       </div>
 
       <section className="flex max-w-4xl justify-between gap-8 self-center">
-        <div className="w-2/6 border-2 border-slate-500 p-2">
+        <div className="mb-32 w-2/6 border-2 border-slate-500 p-2">
+          <Text>
+            Each prompt is unique and designed to help you remember and write
+            about your past.
+          </Text>
+        </div>
+        <div className="mt-32 w-2/6 border-2 border-slate-500 p-2">
           {fetcher.data ? <Text>{fetcher.data}</Text> : <LoadingSpinner />}
         </div>
-        <div className="w-2/6 border-2 border-slate-500 p-2">
-          {fetcher2.data ? <Text>{fetcher2.data}</Text> : <LoadingSpinner />}
-        </div>
-        <div className="w-2/6 border-2 border-slate-500 p-2">
-          {fetcher3.data ? <Text>{fetcher3.data}</Text> : <LoadingSpinner />}
+        <div className="mb-32 w-2/6 border-2 border-slate-500 p-2">
+          <Text>
+            You can write as much or as little as you want, and you can always
+            come back to a prompt later and find it in your timeline!
+          </Text>
         </div>
       </section>
     </section>
