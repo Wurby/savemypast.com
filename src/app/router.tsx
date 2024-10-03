@@ -12,6 +12,7 @@ import Signup from "./Login/Signup";
 import signupAction from "./Login/SignupAction";
 import Home from "./Home/Home";
 import Login, { LoginAction } from "./Login/Login";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 type RouteTitles = {
   [key: string]: string;
@@ -53,14 +54,9 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
+        index: true,
         path: "/",
-        Component: Home as React.FC,
-      },
-      {
-        path: "/prompts",
-        Component: Prompts as React.FC,
-        loader: import.meta.env.VITE_DEV ? fakeLoader : getPrompt,
-        action: promptAction,
+        element: <Home />,
       },
       {
         path: "/login",
@@ -73,22 +69,34 @@ const router = createBrowserRouter([
         Component: Signup as React.FC,
       },
       {
-        path: "/timeline",
-        loader: getSubmissions,
-        Component: Timeline as React.FC,
-      },
-      {
-        path: "/settings",
-        Component: Settings as React.FC,
-      },
-      // not found route
-      {
-        path: "/*",
-        loader: async () => redirect("/404"),
+        path: "*",
+        loader: () => redirect("/404"),
       },
       {
         path: "/404",
         Component: NotFound as React.FC,
+      },
+      {
+        path: "/prompts",
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: "/prompts",
+            index: true,
+            Component: Prompts as React.FC,
+            loader: import.meta.env.VITE_DEV ? fakeLoader : getPrompt,
+            action: promptAction,
+          },
+          {
+            path: "/prompts/timeline",
+            loader: getSubmissions,
+            Component: Timeline as React.FC,
+          },
+          {
+            path: "/prompts/settings",
+            Component: Settings as React.FC,
+          },
+        ],
       },
     ],
   },

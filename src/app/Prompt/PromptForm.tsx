@@ -3,8 +3,8 @@ import { useFetcher } from "react-router-dom";
 import PromptField from "./PromptField";
 import PromptDisplay from "./PromptDisplay";
 import type { PromptForm } from "./PromptForm.d";
-import Button from "../Button";
-import Text from "../Text";
+import Button from "../../components/Button";
+import Text from "../../components/Text";
 
 export const storeSubmissionsInLocalStorage = (data: PromptForm) => {
   const submissions = JSON.parse(

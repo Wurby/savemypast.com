@@ -1,5 +1,5 @@
 import * as React from "react";
-import Text from "../Text";
+import Text from "../../components/Text";
 import { PromptForm } from "./PromptForm.d";
 
 const PromptCard: React.FC<PromptForm> = (prompt: PromptForm) => {

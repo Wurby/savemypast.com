@@ -1,9 +1,9 @@
 import * as React from "react";
-import Text from "../Text";
+import Text from "../../components/Text";
 import { useFetcher } from "react-router-dom";
 import type { PromptForm } from "./PromptForm.d";
-import Button from "../Button";
-import LoadingSpinner from "../LoadingSpinner";
+import Button from "../../components/Button";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 interface PromptDisplayProps {
   className?: string;

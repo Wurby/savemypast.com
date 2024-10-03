@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useFetcher } from "react-router-dom";
-import type PromptForm from "../../components/Prompt/PromptForm";
-import PromptCard from "../../components/Prompt/PromptCard";
+import type PromptForm from "../Prompt/PromptForm";
+import PromptCard from "../Prompt/PromptCard";
 import Text from "../../components/Text";
 import Button from "../../components/Button";
 
@@ -24,7 +24,7 @@ const Timeline: React.FC = () => {
 
   React.useEffect(() => {
     if (fetcher.state === "idle" && !fetcher.data) {
-      fetcher.load("/timeline");
+      fetcher.load("/prompts/timeline");
     }
   }, [fetcher]);
 

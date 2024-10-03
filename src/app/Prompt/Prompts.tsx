@@ -1,5 +1,5 @@
 import React from "react";
-import PromptForm from "../../components/Prompt/PromptForm";
+import PromptForm from "./PromptForm";
 
 const Prompts: React.FC = () => {
   return (

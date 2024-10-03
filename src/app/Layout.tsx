@@ -8,7 +8,7 @@ import { routeTitles } from "./router";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 import { auth } from "../firebase/firebase";
-import { signOut, onAuthStateChanged, User } from "firebase/auth";
+import { signOut, User } from "firebase/auth";
 import Button from "../components/Button";
 
 const Layout: React.FC = () => {
@@ -28,11 +28,9 @@ const Layout: React.FC = () => {
   };
 
   React.useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-      }
-    });
+    const unsubscribe = auth.onAuthStateChanged((user) => setUser(user));
+
+    return unsubscribe;
   }, []);
 
   return (
@@ -58,27 +56,31 @@ const Layout: React.FC = () => {
             >
               Home
             </Link>
-            <VerticalDivider />
-            <Link
-              className="border-2 border-slate-500 bg-slate-300 px-4 py-0.5 text-slate-900 active:translate-y-px dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100"
-              href="/prompts"
-            >
-              Prompts
-            </Link>
-            <VerticalDivider />
-            <Link
-              className="border-2 border-slate-500 bg-slate-300 px-4 py-0.5 text-slate-900 active:translate-y-px dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100"
-              href="/timeline"
-            >
-              Timeline
-            </Link>
-            <VerticalDivider />
-            <Link
-              className="border-2 border-slate-500 bg-slate-300 px-4 py-0.5 text-slate-900 active:translate-y-px dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100"
-              href="/settings"
-            >
-              Settings
-            </Link>
+            {user ? (
+              <>
+                <VerticalDivider />
+                <Link
+                  className="border-2 border-slate-500 bg-slate-300 px-4 py-0.5 text-slate-900 active:translate-y-px dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100"
+                  href="/prompts"
+                >
+                  Prompts
+                </Link>
+                <VerticalDivider />
+                <Link
+                  className="border-2 border-slate-500 bg-slate-300 px-4 py-0.5 text-slate-900 active:translate-y-px dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100"
+                  href="/prompts/timeline"
+                >
+                  Timeline
+                </Link>
+                <VerticalDivider />
+                <Link
+                  className="border-2 border-slate-500 bg-slate-300 px-4 py-0.5 text-slate-900 active:translate-y-px dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100"
+                  href="/prompts/settings"
+                >
+                  Settings
+                </Link>
+              </>
+            ) : null}
             <VerticalDivider />
             {user ? (
               <>
