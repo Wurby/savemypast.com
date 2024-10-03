@@ -54,10 +54,13 @@ const Signup: React.FC = () => {
       onChange={validate}
       method="POST"
       action="/signup"
-      className="flex h-full w-full flex-col items-center justify-center gap-4"
+      className="flex h-full w-full flex-col items-center justify-center gap-2"
     >
-      <div className="flex w-3/6 max-w-xl flex-col justify-center gap-4">
-        <Label className="flex items-center justify-between" htmlFor="email">
+      <div className="flex max-w-xl flex-col justify-center gap-4 md:w-3/6">
+        <Label
+          className="flex items-center justify-between gap-2"
+          htmlFor="email"
+        >
           Email
           <input
             type="email"
@@ -69,7 +72,10 @@ const Signup: React.FC = () => {
             className="border-2 border-slate-300 bg-slate-200 px-3 py-2 focus:outline-none dark:border-slate-800 dark:bg-slate-700 dark:text-slate-100"
           />
         </Label>
-        <Label className="flex items-center justify-between" htmlFor="email">
+        <Label
+          className="flex items-center justify-between gap-2"
+          htmlFor="email"
+        >
           Password
           <input
             type="password"

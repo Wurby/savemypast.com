@@ -23,8 +23,8 @@ export const routeTitles = {
   "/login": "Login",
   "/signup": "Signup",
   "/prompts": "Write your history...",
-  "/settings": "Settings",
-  "/timeline": "Timeline",
+  "/prompts/settings": "Settings",
+  "/prompts/timeline": "Timeline",
   "/404": "Page Not Found",
 } as RouteTitles;
 
